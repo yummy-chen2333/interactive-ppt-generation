@@ -1,4 +1,5 @@
 # Interactive PPT Generation Skill
+一个作业，完成之后觉得还不错，如果有打算水PPT的可以看一看。一个从PPT到演讲文稿全部自动生成的skill，想摆就一直让他自主生成，生成完PPT再问他要演讲文稿，想卷可以提供自己的想法、提供模板PPT、在每一步交流改进想法，我之后可能就用这个生成团日活动PPT了。
 
 一套交给 Coding Agent 使用的交互式 PPT 生成 Skill。
 
