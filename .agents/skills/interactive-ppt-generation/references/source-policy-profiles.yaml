@@ -1,0 +1,170 @@
+schema_version: 1
+
+# All external presentation photos use one presentation-grade acceptance path.
+# Preferred domains, source tiers, authenticity labels, and ranking weights only
+# order candidates; they never create a stricter acceptance or VLM requirement.
+
+default_source_tier_rules:
+  tier1_domain_patterns: [.gov, .edu]
+  tier1_metadata_markers: [official source, official photograph, official archive, institutional collection]
+  tier2_domain_patterns: [commons.wikimedia.org, reuters.com, apnews.com, bbc.com, nytimes.com]
+  tier3_domain_patterns: [unsplash.com, pexels.com, flickr.com]
+
+aliases:
+  scientific: scientific-academic
+  academic: scientific-academic
+  humanities: humanities-culture
+  historical: historical-evidence
+  biography: public-figure-biography
+  product: company-product-technology
+  travel: geography-travel-landmark
+  artwork: artwork-museum-object
+  news: news-current-events
+  photography: generic-real-world
+  decorative: decorative-background
+
+profiles:
+  # `attribution` here controls source/rights metadata expectations during retrieval.
+  # It never directly means visible slide credit. Stage 7 derives
+  # display_attribution_mode from normalized license obligations + asset role.
+  scientific-academic:
+    label: Scientific / academic
+    # Paper/evidence terms ensure the profile follows the slot requirement, not only the deck theme.
+    additional_keywords: [research paper, paper figure, publication, conference paper, neural network, machine learning]
+    keywords: [science, scientific, research, laboratory, microscope, micrograph, medical, biology, chemistry, physics, 科学, 科研, 实验, 显微镜, 医学, 生物, 化学, 物理]
+    preferred_domains: [nih.gov, niaid.nih.gov, nasa.gov, noaa.gov, cdc.gov, who.int, nature.com, science.org, edu]
+    excluded_domains: [pinterest.com, alamy.com, shutterstock.com]
+    source_hints: [official laboratory, university, research institute, scholarly source]
+    authenticity: presentation-grade
+    freshness_days:
+    attribution: required
+    allow_ai_fallback: false
+    max_source_tier: 4
+    ranking_weights: {semantic: 0.27, source: 0.22, authenticity: 0.18, clarity: 0.08, resolution: 0.08, composition: 0.04, provenance: 0.13}
+    tier1_metadata_markers: [niaid, national institutes of health, nasa, noaa, cdc, world health organization, university, research institute]
+
+  humanities-culture:
+    label: Humanities / culture
+    keywords: [humanities, culture, literature, philosophy, heritage, tradition, 人文, 文化, 文学, 哲学, 遗产, 传统]
+    preferred_domains: [unesco.org, si.edu, loc.gov, britishmuseum.org, metmuseum.org, edu]
+    excluded_domains: [pinterest.com, fandom.com]
+    source_hints: [museum, archive, cultural institution, university collection]
+    authenticity: presentation-grade
+    freshness_days:
+    attribution: required
+    allow_ai_fallback: false
+    max_source_tier: 4
+    ranking_weights: {semantic: 0.27, source: 0.20, authenticity: 0.15, clarity: 0.09, resolution: 0.08, composition: 0.08, provenance: 0.13}
+    tier1_metadata_markers: [unesco, smithsonian, museum, cultural institution, university collection]
+
+  historical-evidence:
+    label: Historical evidence
+    keywords: [history, historical, archive, archival, war, revolution, ancient, 历史, 档案, 战争, 革命, 古代, 登月]
+    preferred_domains: [archives.gov, loc.gov, nasa.gov, si.edu, iwm.org.uk, museum, archive]
+    excluded_domains: [pinterest.com, colorized.com]
+    source_hints: [primary source, archive, museum collection, official historical record]
+    authenticity: presentation-grade
+    freshness_days:
+    attribution: required
+    allow_ai_fallback: false
+    max_source_tier: 4
+    ranking_weights: {semantic: 0.24, source: 0.23, authenticity: 0.21, clarity: 0.06, resolution: 0.06, composition: 0.04, provenance: 0.16}
+    tier1_metadata_markers: [nasa, library of congress, national archives, smithsonian, museum archive, primary source]
+
+  public-figure-biography:
+    label: Public figure / biography
+    keywords: [biography, person, portrait, founder, scientist, president, actor, 人物, 传记, 肖像, 创始人, 科学家, 总统]
+    preferred_domains: [gov, edu, official, reuters.com, apnews.com, getty.edu]
+    excluded_domains: [pinterest.com, fanpop.com]
+    source_hints: [official portrait, institutional biography, reputable news photograph]
+    authenticity: presentation-grade
+    freshness_days:
+    attribution: required
+    allow_ai_fallback: false
+    max_source_tier: 4
+    ranking_weights: {semantic: 0.26, source: 0.22, authenticity: 0.20, clarity: 0.08, resolution: 0.07, composition: 0.05, provenance: 0.12}
+    tier1_metadata_markers: [official portrait, institutional biography, presidential library, university archive]
+
+  company-product-technology:
+    label: Company / product / technology
+    keywords: [company, product, technology, device, software, hardware, apple, vision pro, 公司, 产品, 科技, 设备, 软件, 硬件]
+    preferred_domains: [apple.com, microsoft.com, google.com, samsung.com, sony.com, official, newsroom]
+    excluded_domains: [pinterest.com, aliexpress.com, temu.com]
+    source_hints: [official product page, company newsroom, trusted technology publication]
+    authenticity: presentation-grade
+    freshness_days: 1095
+    attribution: required
+    allow_ai_fallback: false
+    max_source_tier: 4
+    ranking_weights: {semantic: 0.28, source: 0.23, authenticity: 0.17, clarity: 0.08, resolution: 0.08, composition: 0.06, provenance: 0.10}
+    tier1_metadata_markers: [apple inc, official product page, company newsroom, official source page]
+
+  geography-travel-landmark:
+    label: Geography / travel / landmark
+    keywords: [geography, travel, tourism, city, landscape, landmark, map, eiffel, 地理, 旅行, 旅游, 城市, 风景, 地标, 地图, 埃菲尔]
+    preferred_domains: [unesco.org, tourism, gov, nationalgeographic.com, wikivoyage.org]
+    excluded_domains: [pinterest.com]
+    source_hints: [official tourism board, geographic institution, traceable real photograph]
+    authenticity: presentation-grade
+    freshness_days:
+    attribution: when-required
+    allow_ai_fallback: false
+    max_source_tier: 4
+    ranking_weights: {semantic: 0.27, source: 0.14, authenticity: 0.14, clarity: 0.10, resolution: 0.10, composition: 0.14, provenance: 0.11}
+    tier1_metadata_markers: [unesco, official tourism, geographic institution, library of congress, noaa]
+
+  artwork-museum-object:
+    label: Artwork / museum object
+    keywords: [art, artwork, painting, sculpture, museum object, collection, 艺术, 艺术品, 绘画, 雕塑, 文物, 馆藏]
+    preferred_domains: [metmuseum.org, britishmuseum.org, louvre.fr, rijksmuseum.nl, si.edu, museum]
+    excluded_domains: [pinterest.com, artstation.com]
+    source_hints: [museum collection record, artist catalogue, institutional object page]
+    authenticity: presentation-grade
+    freshness_days:
+    attribution: required
+    allow_ai_fallback: false
+    max_source_tier: 4
+    ranking_weights: {semantic: 0.25, source: 0.21, authenticity: 0.19, clarity: 0.08, resolution: 0.08, composition: 0.06, provenance: 0.13}
+    tier1_metadata_markers: [museum collection, accession number, catalogue record, smithsonian, metropolitan museum, british museum]
+
+  news-current-events:
+    label: News / current events
+    keywords: [news, current, today, latest, election, conflict, 新闻, 时事, 最新, 选举, 冲突]
+    preferred_domains: [reuters.com, apnews.com, bbc.com, gov, official]
+    excluded_domains: [pinterest.com, blogspot.com]
+    source_hints: [reputable news agency, official current release]
+    authenticity: presentation-grade
+    freshness_days: 45
+    attribution: required
+    allow_ai_fallback: false
+    max_source_tier: 4
+    ranking_weights: {semantic: 0.22, source: 0.20, authenticity: 0.18, freshness: 0.18, clarity: 0.06, resolution: 0.05, composition: 0.03, provenance: 0.08}
+    tier1_metadata_markers: [official release, government press office]
+
+  generic-real-world:
+    label: Generic real-world photography
+    keywords: [photo, photography, scene, people, activity, real world, 照片, 摄影, 场景, 人物, 活动, 真实]
+    preferred_domains: [unsplash.com, pexels.com, wikimedia.org]
+    excluded_domains: [pinterest.com]
+    source_hints: [traceable documentary photograph, high-quality photography source]
+    authenticity: presentation-grade
+    freshness_days:
+    attribution: when-required
+    allow_ai_fallback: false
+    max_source_tier: 4
+    ranking_weights: {semantic: 0.28, source: 0.12, authenticity: 0.13, clarity: 0.11, resolution: 0.11, composition: 0.15, provenance: 0.10}
+    tier1_metadata_markers: [documentary collection, institutional photograph]
+
+  decorative-background:
+    label: Decorative / background
+    keywords: [decorative, background, texture, mood, abstract, 装饰, 背景, 纹理, 氛围, 抽象]
+    preferred_domains: [unsplash.com, pexels.com]
+    excluded_domains: [pinterest.com]
+    source_hints: [high-resolution stock photography, reusable texture]
+    authenticity: presentation-grade
+    freshness_days:
+    attribution: when-required
+    allow_ai_fallback: true
+    max_source_tier: 4
+    ranking_weights: {semantic: 0.22, source: 0.07, authenticity: 0.05, clarity: 0.15, resolution: 0.15, composition: 0.28, provenance: 0.08}
+    tier1_metadata_markers: []

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Interactive PPT Generation"
+  short_description: "Research, script, design, and export editable PPTX"
+  default_prompt: "Use $interactive-ppt-generation to confirm the narrative, write evidence-backed per-slide speaker notes, search visuals from those notes, review text and image layout, assemble compliant SVG pages, and export a versioned editable PPTX."

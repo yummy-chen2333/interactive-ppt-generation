@@ -1,0 +1,19 @@
+schema_version: 2
+current_stage: template_route
+template_route: pending
+page_count: null
+gates:
+  template_route: pending
+  presentation_brief: pending
+  text_plan: pending
+  content_final: pending
+  user_assets: pending
+  speaker_notes: pending
+  visual_assets: pending
+  production_plan: pending
+  layout_review: pending
+  svg: pending
+  export: pending
+  final_validation: pending
+gate_artifacts: {}
+changed_pages: []

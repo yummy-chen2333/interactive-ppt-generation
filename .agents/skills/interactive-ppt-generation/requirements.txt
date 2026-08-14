@@ -1,0 +1,7 @@
+python-pptx>=0.6.21
+Pillow>=9.0.0
+XlsxWriter>=3.0.0
+lxml>=4.9.0
+PyYAML>=6.0
+httpx>=0.25.0
+PyMuPDF>=1.23.0
